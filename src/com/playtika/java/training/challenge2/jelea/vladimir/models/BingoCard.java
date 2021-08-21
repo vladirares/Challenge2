@@ -35,6 +35,10 @@ public class BingoCard implements Card {
         return result.toString();
     }
 
+    public Map<NumberType, List<Integer>> getNumbers(){
+        return numbers;
+    }
+
 }
 
 

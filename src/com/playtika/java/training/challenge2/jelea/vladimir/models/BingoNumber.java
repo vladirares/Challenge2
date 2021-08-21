@@ -2,6 +2,8 @@ package com.playtika.java.training.challenge2.jelea.vladimir.models;
 
 import com.playtika.java.training.challenge2.jelea.vladimir.contracts.Printable;
 
+import java.util.Objects;
+
 public class BingoNumber implements Cloneable, Printable {
     private NumberType column;
     private int number;
@@ -36,5 +38,16 @@ public class BingoNumber implements Cloneable, Printable {
     @Override
     public String toString() {
         return column + "-" + number;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return (((BingoNumber)o).getColumn().equals(this.getColumn()))
+                && (((BingoNumber)o).getNumber() == this.getNumber());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(column, number);
     }
 }

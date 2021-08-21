@@ -5,7 +5,7 @@ import com.playtika.java.training.challenge2.jelea.vladimir.contracts.Printable;
 
 import java.util.UUID;
 
-public class PlayerCard implements Printable {
+public class PlayerCard implements Printable, Cloneable {
     public final UUID UID;
     private Card card;
 
@@ -20,11 +20,17 @@ public class PlayerCard implements Printable {
         System.out.println(card);
     }
 
+    public Card getCard() {
+        return card;
+    }
+
     @Override
     public String toString() {
-        return "PlayerCard{" +
-                "UID=" + UID +
-                ", card=" + card +
-                '}';
+        return card + "\n";
     }
+
+    //    @Override
+//    protected Object clone() throws CloneNotSupportedException {
+//        PlayerCard playerCard = new PlayerCard()
+//    }
 }
