@@ -19,8 +19,11 @@ public enum NumberType {
         return (number >= lowValue) && (number <= highValue);
     }
 
-//    public static NumberType produceNumber(String number){
-//        return NumberType.valueOf(number)
-//    }
+    public int getLowValue() {
+        return lowValue;
+    }
 
+    public int getHighValue() {
+        return highValue;
+    }
 }
