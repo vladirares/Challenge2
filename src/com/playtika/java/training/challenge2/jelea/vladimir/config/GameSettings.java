@@ -2,7 +2,7 @@ package com.playtika.java.training.challenge2.jelea.vladimir.config;
 
 import com.playtika.java.training.challenge2.jelea.vladimir.exceptions.NoAvailablePlayersException;
 import com.playtika.java.training.challenge2.jelea.vladimir.exceptions.NoGameSettingsException;
-import com.playtika.java.training.challenge2.jelea.vladimir.models.BingoNumber;
+import com.playtika.java.training.challenge2.jelea.vladimir.models.card.BingoNumber;
 import com.playtika.java.training.challenge2.jelea.vladimir.models.NumberType;
 
 import java.io.File;

@@ -1,6 +1,7 @@
-package com.playtika.java.training.challenge2.jelea.vladimir.models;
+package com.playtika.java.training.challenge2.jelea.vladimir.models.card;
 
 import com.playtika.java.training.challenge2.jelea.vladimir.contracts.Card;
+import com.playtika.java.training.challenge2.jelea.vladimir.models.NumberType;
 
 import java.util.List;
 import java.util.Map;

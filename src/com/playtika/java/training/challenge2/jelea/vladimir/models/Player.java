@@ -1,6 +1,9 @@
 package com.playtika.java.training.challenge2.jelea.vladimir.models;
 
 import com.playtika.java.training.challenge2.jelea.vladimir.contracts.Card;
+import com.playtika.java.training.challenge2.jelea.vladimir.models.card.BingoCard;
+import com.playtika.java.training.challenge2.jelea.vladimir.models.card.BingoNumber;
+import com.playtika.java.training.challenge2.jelea.vladimir.models.card.PlayerCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +13,18 @@ public class Player implements Callable<Boolean> {
     private int noCards;
     private String name;
     private List<PlayerCard> ownedCards;
-    private boolean isBingoTime;
+    private volatile boolean isBingoTime;
     private String winningSchema;
     private List<BingoNumber> previousNumbers;
+    private Thread callerThread;
+    private boolean stop;
 
     public Player(int noCards, String name) {
         this.noCards = noCards;
         this.name = name;
         previousNumbers = new ArrayList<>();
         isBingoTime = true;
+        stop = false;
     }
 
     public void setPlayerCards(List<PlayerCard> ownedCards) {
@@ -29,15 +35,15 @@ public class Player implements Callable<Boolean> {
         return noCards;
     }
 
-    public void checkCardsToWin() {
-        while(isBingoTime) {
+    private void checkCardsToWin() {
+        while (isBingoTime && !stop) {
             for (PlayerCard card : ownedCards) {
                 Card bingoCard = card.getCard();
                 if (isFourCorners(bingoCard) || isSmallDiamond(bingoCard)
                         || isPostageStamp(bingoCard) || isVerticalLine(bingoCard)
                         || isHorizontalLine(bingoCard) || isDiagonalLine(bingoCard)) {
                     winningSchema = card.toString();
-                    System.out.println("wwwwwwwwwwwww\n"+winningSchema);
+                    System.out.println("wwwwwwwwwwwww\n" + winningSchema + "\nUID" + card.getUID());
                     isBingoTime = false;
                 }
             }
@@ -49,25 +55,27 @@ public class Player implements Callable<Boolean> {
         }
     }
 
-    public boolean hasSaidBingo() {
+    public synchronized void setStop(boolean stop){
+        this.stop = stop;
+    }
 
-        return true;
+    public boolean hasSaidBingo() {
+        return !isBingoTime;
     }
 
     @Override
     public Boolean call() throws Exception {
+
         new Thread(this::checkCardsToWin).start();
 
-        while(isBingoTime) {
+        while (isBingoTime && !stop) {
             BingoNumber lastNumber = new BingoNumber(NumberType.valueOf(Caller.getInstance().getLastColumn() + "")
                     , Caller.getInstance().getLastNumber());
             if (previousNumbers.size() < Caller.getInstance().getNoOfPlayedNumbers()) {
                 previousNumbers.add(lastNumber);
             }
-            Thread.sleep(10);
         }
-
-        return true;//todo
+        return !isBingoTime;
     }
 
     private boolean isSmallDiamond(Card card) {

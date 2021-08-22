@@ -1,5 +1,7 @@
 package com.playtika.java.training.challenge2.jelea.vladimir.models;
 
+import com.playtika.java.training.challenge2.jelea.vladimir.models.card.BingoNumber;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,7 +13,7 @@ public class Caller extends Thread {
     volatile private int lastNumberNumber;
     private AtomicInteger noRounds;
     private List<BingoNumber> previousCombinations;
-    private boolean isGameFinished;
+    private volatile boolean isGameFinished;
     private Random random;
 
     public Caller() {
@@ -20,6 +22,7 @@ public class Caller extends Thread {
         lastNumberNumber = 0;
         previousCombinations = new ArrayList<>();
         noRounds = new AtomicInteger();
+        isGameFinished = false;
     }
 
     public static Caller getInstance() {
@@ -57,11 +60,19 @@ public class Caller extends Thread {
         return isGameFinished;
     }
 
+    public boolean isGameFinished() {
+        return isGameFinished;
+    }
+
+    public void setGameFinished(boolean gameFinished) {
+        isGameFinished = gameFinished;
+    }
+
     @Override
     public void run() {
         String[] columns = {"B", "I", "N", "G", "O"};
 
-        while (true) {
+        while (!isGameFinished) {
 
             BingoNumber number;
             do {
@@ -84,6 +95,8 @@ public class Caller extends Thread {
             }
 
         }
+
+        System.out.println("caller end");
 
     }
 }
