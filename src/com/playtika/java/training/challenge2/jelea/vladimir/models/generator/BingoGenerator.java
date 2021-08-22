@@ -1,10 +1,11 @@
-package com.playtika.java.training.challenge2.jelea.vladimir.models;
+package com.playtika.java.training.challenge2.jelea.vladimir.models.generator;
 
 import com.playtika.java.training.challenge2.jelea.vladimir.contracts.Card;
 import com.playtika.java.training.challenge2.jelea.vladimir.contracts.Generator;
+import com.playtika.java.training.challenge2.jelea.vladimir.models.card.BingoCard;
+import com.playtika.java.training.challenge2.jelea.vladimir.models.NumberType;
 
 import java.util.*;
-import java.util.concurrent.Callable;
 
 public class BingoGenerator implements Generator {
     private Random random = new Random();

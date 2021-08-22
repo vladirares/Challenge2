@@ -1,4 +1,4 @@
-package com.playtika.java.training.challenge2.jelea.vladimir.models;
+package com.playtika.java.training.challenge2.jelea.vladimir.models.card;
 
 import com.playtika.java.training.challenge2.jelea.vladimir.contracts.Card;
 import com.playtika.java.training.challenge2.jelea.vladimir.contracts.Printable;
@@ -12,6 +12,10 @@ public class PlayerCard implements Printable, Cloneable {
     public PlayerCard(Card card) {
         UID = UUID.randomUUID();
         this.card = card;
+    }
+
+    public UUID getUID() {
+        return UID;
     }
 
     @Override

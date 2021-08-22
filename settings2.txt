@@ -1,4 +1,4 @@
-3000000
+3000
 7
 Vladimir
 Alice
